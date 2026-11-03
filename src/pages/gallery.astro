@@ -1,0 +1,298 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { photos, categoryLabels } from '../data/gallery';
+
+const categories = Object.entries(categoryLabels);
+---
+
+<Layout
+  title="Gallery | YETS"
+  description="Photos from YETS camps, team builds and life skills sessions with South African youth."
+>
+  <section class="header section">
+    <div class="container header-inner">
+      <span class="pill-label">Gallery</span>
+      <h1 class="display">Training in action</h1>
+      <p class="lead">Moments from camps, team builds and life skills sessions run with young people.</p>
+      <div class="filters" role="group" aria-label="Filter photos">
+        <button type="button" class="chip active" data-filter="all" aria-pressed="true">All</button>
+        {
+          categories.map(([key, label]) => (
+            <button type="button" class="chip" data-filter={key} aria-pressed="false">
+              {label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-section section">
+    <div class="container">
+      <ul class="grid">
+        {
+          photos.map((p, i) => (
+            <li data-category={p.category}>
+              <button type="button" class="thumb" aria-label={`View larger: ${p.alt}`}>
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  widths={[360, 540, 800]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 25vw"
+                  loading={i < 4 ? 'eager' : 'lazy'}
+                />
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <dialog id="lightbox" aria-label="Photo viewer">
+    <button type="button" class="lb-close" aria-label="Close">×</button>
+    <button type="button" class="lb-nav prev" aria-label="Previous photo">‹</button>
+    <figure>
+      <img id="lb-img" alt="" />
+      <figcaption id="lb-cap"></figcaption>
+    </figure>
+    <button type="button" class="lb-nav next" aria-label="Next photo">›</button>
+  </dialog>
+
+  <CtaBand
+    heading="Want this for your learners?"
+    body="Tell us about your school, church or organisation and we will shape a camp or life skills programme for you."
+    primary="Request a custom quote"
+    secondary="Join a free info session"
+  />
+</Layout>
+
+<script>
+  const items = Array.from(document.querySelectorAll<HTMLLIElement>('.grid li'));
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.filter;
+      chips.forEach((c) => {
+        const on = c === chip;
+        c.classList.toggle('active', on);
+        c.setAttribute('aria-pressed', String(on));
+      });
+      items.forEach((li) => (li.hidden = f !== 'all' && li.dataset.category !== f));
+    })
+  );
+
+  const dlg = document.getElementById('lightbox') as HTMLDialogElement;
+  const img = document.getElementById('lb-img') as HTMLImageElement;
+  const cap = document.getElementById('lb-cap')!;
+  let current = 0;
+
+  function show(li: HTMLLIElement) {
+    const thumb = li.querySelector('img')!;
+    current = items.indexOf(li);
+    // Use the largest generated candidate from the thumbnail's srcset
+    const largest = thumb.srcset.split(',').pop()?.trim().split(' ')[0];
+    img.src = largest || thumb.src;
+    img.alt = thumb.alt;
+    cap.textContent = thumb.alt;
+  }
+
+  function step(dir: number) {
+    const visible = items.filter((li) => !li.hidden);
+    const i = visible.indexOf(items[current]);
+    show(visible[(i + dir + visible.length) % visible.length]);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.thumb').forEach((b) =>
+    b.addEventListener('click', () => {
+      show(b.closest('li') as HTMLLIElement);
+      dlg.showModal();
+    })
+  );
+  dlg.querySelector('.lb-close')!.addEventListener('click', () => dlg.close());
+  dlg.querySelector('.prev')!.addEventListener('click', () => step(-1));
+  dlg.querySelector('.next')!.addEventListener('click', () => step(1));
+  dlg.addEventListener('click', (e) => {
+    if (e.target === dlg) dlg.close();
+  });
+  dlg.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+</script>
+
+<style>
+  .header {
+    padding-top: 72px;
+    padding-bottom: 32px;
+  }
+  .header-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  h1 {
+    font-weight: 800;
+    font-size: clamp(36px, 5.5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .lead {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 620px;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .chip {
+    font: inherit;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 2px solid var(--green-700);
+    background: transparent;
+    color: var(--green-700);
+    cursor: pointer;
+  }
+  .chip.active {
+    background: var(--green-700);
+    color: #fff;
+  }
+
+  .grid-section {
+    padding-top: 24px;
+    padding-bottom: 88px;
+  }
+  .grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .grid li[hidden] {
+    display: none;
+  }
+  .thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: var(--green-100);
+    aspect-ratio: 4 / 3;
+  }
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .thumb:hover img {
+    transform: scale(1.04);
+  }
+
+  dialog {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+  }
+  dialog[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  dialog::backdrop {
+    background: rgba(14, 42, 29, 0.92);
+  }
+  figure {
+    margin: 0;
+    max-width: min(1100px, 80vw);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  figure img {
+    max-width: 100%;
+    max-height: 78vh;
+    border-radius: 12px;
+  }
+  figcaption {
+    font-size: 15px;
+    color: var(--on-dark-soft);
+    text-align: center;
+  }
+  .lb-close,
+  .lb-nav {
+    font: inherit;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border: 0;
+    border-radius: 999px;
+    width: 48px;
+    height: 48px;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    flex: none;
+  }
+  .lb-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  .lb-close:hover,
+  .lb-nav:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  @media (max-width: 1100px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .header {
+      padding-top: 40px;
+    }
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .grid-section {
+      padding-bottom: 56px;
+    }
+    figure {
+      max-width: 100vw;
+    }
+    .lb-nav {
+      position: absolute;
+      bottom: 16px;
+    }
+    .lb-nav.prev {
+      left: 16px;
+    }
+    .lb-nav.next {
+      right: 16px;
+    }
+  }
+</style>

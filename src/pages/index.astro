@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { Image } from 'astro:assets';
 import heroPhoto from '../assets/hero-circle-game.jpeg';
+import { featured } from '../data/gallery';
 
 const audience = [
   'School teachers (Grade R–12)',
@@ -178,6 +179,27 @@ const stories = [
           programmes and camps that transform young lives.
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- Gallery teaser -->
+  <section class="teaser section">
+    <div class="container teaser-inner">
+      <div class="preview-head">
+        <h2 class="display">Training in action</h2>
+        <a href="/gallery" class="see-all">See the full gallery →</a>
+      </div>
+      <ul class="teaser-grid">
+        {
+          featured.map((p) => (
+            <li>
+              <a href="/gallery" aria-label="Open the gallery">
+                <Image src={p.src} alt={p.alt} widths={[320, 480, 640]} sizes="(max-width: 640px) 50vw, 17vw" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -460,6 +482,41 @@ const stories = [
     color: #3a2705;
   }
 
+  /* Gallery teaser */
+  .teaser {
+    padding-bottom: 88px;
+  }
+  .teaser-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .teaser-inner h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 40px);
+    letter-spacing: -0.01em;
+  }
+  .teaser-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .teaser-grid a {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--green-100);
+  }
+  .teaser-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   /* Proof */
   .proof {
     padding-bottom: 88px;
@@ -493,7 +550,16 @@ const stories = [
     color: var(--green-800);
   }
 
+  @media (max-width: 900px) {
+    .teaser-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
   @media (max-width: 640px) {
+    .teaser {
+      padding-bottom: 56px;
+    }
     .hero {
       padding-top: 40px;
       padding-bottom: 48px;

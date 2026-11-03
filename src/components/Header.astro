@@ -2,6 +2,7 @@
 const path = Astro.url.pathname;
 const isHome = path === '/';
 const isServices = path.startsWith('/services');
+const isGallery = path.startsWith('/gallery');
 ---
 
 <header class="site-header">
@@ -16,6 +17,7 @@ const isServices = path.startsWith('/services');
     <nav aria-label="Main">
       <a href="/" class:list={['link', { active: isHome }]} aria-current={isHome ? 'page' : undefined}>Home</a>
       <a href="/services" class:list={['link', { active: isServices }]} aria-current={isServices ? 'page' : undefined}>Services</a>
+      <a href="/gallery" class:list={['link', { active: isGallery }]} aria-current={isGallery ? 'page' : undefined}>Gallery</a>
       <a href="/#about" class="link">About</a>
       <a href="#contact" class="link">Contact</a>
       <a href="#contact" class="book">Book a training</a>
