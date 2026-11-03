@@ -4,6 +4,7 @@ import CtaBand from '../components/CtaBand.astro';
 import { Image } from 'astro:assets';
 import heroPhoto from '../assets/hero-circle-game.jpeg';
 import { featured } from '../data/gallery';
+import { whatsapp } from '../data/contact';
 
 const audience = [
   'School teachers (Grade R–12)',
@@ -63,7 +64,9 @@ const stories = [
         </p>
         <div class="btn-row">
           <a href="/services" class="btn btn-accent">Explore our training</a>
-          <a href="#contact" class="btn btn-outline">Join a free info session</a>
+          <a href={whatsapp('Hi YETS, I would like to join a free info session.')} class="btn btn-outline">
+            Join a free info session
+          </a>
         </div>
       </div>
       <div class="hero-photo">

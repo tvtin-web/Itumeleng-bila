@@ -1,3 +1,7 @@
+---
+import { email, phoneDisplay, whatsapp } from '../data/contact';
+---
+
 <footer class="site-footer">
   <div class="container inner">
     <div class="about">
@@ -8,14 +12,17 @@
     </div>
     <div class="col contact">
       <span class="head">Contact</span>
-      <span>[EMAIL ADDRESS]</span>
-      <span>[PHONE / WHATSAPP]</span>
+      <a href={`mailto:${email}`}>{email}</a>
+      <a href={whatsapp('Hi YETS, I would like to find out more about your training.')}>
+        WhatsApp {phoneDisplay}
+      </a>
       <span>[SOCIAL LINKS]</span>
     </div>
     <div class="col">
       <span class="head">Explore</span>
       <a href="/">Home</a>
       <a href="/services">Services</a>
+      <a href="/gallery">Gallery</a>
     </div>
   </div>
 </footer>

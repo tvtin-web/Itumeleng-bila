@@ -1,4 +1,6 @@
 ---
+import { mailto, whatsapp } from '../data/contact';
+
 interface Props {
   heading: string;
   body: string;
@@ -16,8 +18,8 @@ const { heading, body, primary, secondary } = Astro.props;
       <p>{body}</p>
     </div>
     <div class="btn-row">
-      <a href="#contact" class="btn btn-accent">{primary}</a>
-      <a href="#contact" class="btn btn-outline-light">{secondary}</a>
+      <a href={whatsapp(`Hi YETS, I would like to: ${primary}.`)} class="btn btn-accent">{primary}</a>
+      <a href={mailto(secondary)} class="btn btn-outline-light">{secondary}</a>
     </div>
   </div>
 </section>

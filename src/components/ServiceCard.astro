@@ -1,5 +1,6 @@
 ---
 import type { Service } from '../data/services';
+import { whatsapp } from '../data/contact';
 
 interface Props {
   service: Service;
@@ -13,7 +14,7 @@ const { service, number } = Astro.props;
   <div class="head">
     <span class="num">{number}</span>
     <h2>{service.title}</h2>
-    <a href="#contact" class="enquire">{service.cta} →</a>
+    <a href={whatsapp(`Hi YETS, I would like to enquire about: ${service.title}.`)} class="enquire">{service.cta} →</a>
   </div>
   <ul>
     {service.points.map((point) => <li>{point}</li>)}
