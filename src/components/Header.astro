@@ -14,7 +14,10 @@ const isGallery = path.startsWith('/gallery');
         <span class="brand-sub">Youth Empowerment Training Solutions</span>
       </span>
     </a>
-    <nav aria-label="Main">
+    <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
+      <span class="bars"></span>
+    </button>
+    <nav id="main-nav" aria-label="Main">
       <a href="/" class:list={['link', { active: isHome }]} aria-current={isHome ? 'page' : undefined}>Home</a>
       <a href="/services" class:list={['link', { active: isServices }]} aria-current={isServices ? 'page' : undefined}>Services</a>
       <a href="/gallery" class:list={['link', { active: isGallery }]} aria-current={isGallery ? 'page' : undefined}>Gallery</a>
@@ -108,13 +111,104 @@ const isGallery = path.startsWith('/gallery');
     background: var(--green-800);
   }
 
+  .menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+  .bars,
+  .bars::before,
+  .bars::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .bars {
+    position: relative;
+  }
+  .bars::before,
+  .bars::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .bars::before {
+    top: -6px;
+  }
+  .bars::after {
+    top: 6px;
+  }
+  .menu-toggle[aria-expanded='true'] .bars {
+    background: transparent;
+  }
+  .menu-toggle[aria-expanded='true'] .bars::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .menu-toggle[aria-expanded='true'] .bars::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
   @media (max-width: 640px) {
     .bar {
       padding-top: 14px;
       padding-bottom: 14px;
+      flex-wrap: nowrap;
+      position: relative;
+    }
+    .brand-sub {
+      display: none;
+    }
+    .menu-toggle {
+      display: flex;
     }
     nav {
-      gap: 8px 20px;
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 8px var(--gutter) 20px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--line);
+    }
+    nav.open {
+      display: flex;
+    }
+    .link {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .book {
+      margin-top: 16px;
+      text-align: center;
     }
   }
 </style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.getElementById('main-nav');
+  if (toggle && nav) {
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+    toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    nav.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+  }
+</script>
