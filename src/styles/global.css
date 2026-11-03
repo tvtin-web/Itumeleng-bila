@@ -19,6 +19,8 @@
   --on-dark-muted: #b9cbbf;
   --font-display: 'Bricolage Grotesque', sans-serif;
   --font-body: 'DM Sans', sans-serif;
+  /* Side padding that grows with the screen so content fills the width */
+  --gutter: clamp(20px, 5vw, 96px);
 }
 
 *,
@@ -59,13 +61,12 @@ ul {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .section {
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
 }
 
 /* Typography */
@@ -146,10 +147,6 @@ ul {
 }
 
 @media (max-width: 640px) {
-  .section {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
   .btn {
     text-align: center;
   }
