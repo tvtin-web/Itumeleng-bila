@@ -1,0 +1,77 @@
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="about">
+      <span class="name">YETS</span>
+      <span class="text"
+        >Youth Empowerment Training Solutions. Based in Pretoria, with online reach across South Africa.</span
+      >
+    </div>
+    <div class="col contact">
+      <span class="head">Contact</span>
+      <span>[EMAIL ADDRESS]</span>
+      <span>[PHONE / WHATSAPP]</span>
+      <span>[SOCIAL LINKS]</span>
+    </div>
+    <div class="col">
+      <span class="head">Explore</span>
+      <a href="/">Home</a>
+      <a href="/services">Services</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--green-900);
+    padding: 48px 32px;
+  }
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 360px;
+  }
+  .name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+  .text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--on-dark-muted);
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 15px;
+    color: var(--on-dark-muted);
+  }
+  .head {
+    font-weight: 700;
+    color: #fff;
+  }
+  .col a {
+    color: var(--on-dark-muted);
+    text-decoration: none;
+    padding: 4px 0;
+  }
+  .col a:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 640px) {
+    .site-footer {
+      padding: 40px 20px;
+    }
+  }
+</style>

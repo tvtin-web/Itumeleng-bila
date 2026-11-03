@@ -1,0 +1,63 @@
+---
+interface Props {
+  heading: string;
+  body: string;
+  primary: string;
+  secondary: string;
+}
+
+const { heading, body, primary, secondary } = Astro.props;
+---
+
+<section id="contact" class="cta section">
+  <div class="container inner">
+    <div class="copy">
+      <h2>{heading}</h2>
+      <p>{body}</p>
+    </div>
+    <div class="btn-row">
+      <a href="#contact" class="btn btn-accent">{primary}</a>
+      <a href="#contact" class="btn btn-outline-light">{secondary}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    background: var(--green-800);
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .copy {
+    flex: 1 1 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.1;
+    color: #fff;
+  }
+  p {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--on-dark-soft);
+  }
+
+  @media (max-width: 640px) {
+    .cta {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+  }
+</style>

@@ -1,0 +1,524 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const audience = [
+  'School teachers (Grade R–12)',
+  'Youth workers & children’s church leaders',
+  'NPOs & NGOs',
+  'After-school programme staff',
+  'Faith-based organisations',
+];
+
+const preview = [
+  {
+    title: 'Camp Facilitation Training',
+    body: 'Plan and structure a camp, create safe and engaging environments, manage risk and child protection, and run games, activities and themes.',
+    tint: 'amber',
+    icon: '<path d="M3 20 12 5l9 15z"></path><path d="M12 5v15"></path>',
+  },
+  {
+    title: 'Life Skills Programme Training',
+    body: 'Develop curriculum, learn facilitation techniques for after-school settings, work with diverse learners, and monitor and evaluate your programme.',
+    tint: 'green',
+    icon: '<path d="M4 5h11a4 4 0 0 1 4 4v10H8a4 4 0 0 1-4-4z"></path><path d="M8 9h7M8 13h5"></path>',
+  },
+  {
+    title: 'Custom Training for Organisations & Schools',
+    body: 'On-site or online short courses, weekend intensives or multi-week programmes, with materials and follow-up mentorship for your team.',
+    tint: 'amber',
+    icon: '<circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path><path d="M15 14.2c.6-.2 1.3-.3 2-.3 2.2 0 4 1.8 4 4"></path>',
+  },
+];
+
+const delivery = [
+  { n: '01', title: 'In-person sessions', body: 'Hands-on workshops hosted with partner schools, churches and civic organisations.' },
+  { n: '02', title: 'Live webinars', body: 'Interactive Zoom or Teams sessions that reach facilitators anywhere in South Africa.' },
+  { n: '03', title: 'Recorded modules', body: 'Self-paced lessons, toolkits and templates you can return to before every camp or term.' },
+];
+
+const stories = [
+  { text: '[TESTIMONIAL: a teacher or youth worker who completed camp facilitation training]', who: '[NAME, ROLE, ORGANISATION]' },
+  { text: '[TESTIMONIAL: a school or NGO that commissioned custom training]', who: '[NAME, ROLE, ORGANISATION]' },
+  { text: '[IMPACT STORY: short result from a camp or programme run by a trained facilitator]', who: '[NAME, PLACE]' },
+];
+---
+
+<Layout
+  title="YETS | Empowering Leaders. Transforming Youth."
+  description="Practical, culturally relevant training for South African teachers, youth workers and community leaders running camps and life skills programmes."
+>
+  <!-- Hero -->
+  <section class="hero section">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="pill-label">Training for youth leaders across South Africa</span>
+        <h1 class="display">Empowering Leaders. Transforming Youth.</h1>
+        <p class="lead">
+          Practical, culturally relevant training that equips teachers, youth workers and community leaders to run camps
+          and life skills programmes that change young lives.
+        </p>
+        <div class="btn-row">
+          <a href="/services" class="btn btn-accent">Explore our training</a>
+          <a href="#contact" class="btn btn-outline">Join a free info session</a>
+        </div>
+      </div>
+      <div class="hero-photo" role="img" aria-label="Photo placeholder: facilitator leading a camp session">
+        <span>[PHOTO: facilitator leading a camp session]</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audience -->
+  <section class="audience section">
+    <div class="container audience-inner">
+      <span class="audience-label">Built for</span>
+      {audience.map((a) => <span class="audience-item">{a}</span>)}
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section id="about" class="problem section">
+    <div class="container problem-inner">
+      <div class="problem-head">
+        <span class="eyebrow">The gap we close</span>
+        <h2 class="display">Passion is not the problem. Skills and confidence are.</h2>
+      </div>
+      <div class="problem-body">
+        <p>
+          Many teachers and youth workers in South Africa want to engage children and young people beyond the classroom,
+          but lack the tools or confidence to run life-changing camps or sustainable after-school programmes.
+        </p>
+        <p>
+          YETS draws on years of hands-on camp and life skills facilitation to bridge that gap, with training rooted in
+          the realities of the South African educational and social landscape.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services preview -->
+  <section class="preview section">
+    <div class="container preview-inner">
+      <div class="preview-head">
+        <h2 class="display">What we train you to do</h2>
+        <a href="/services" class="see-all">See all 6 services →</a>
+      </div>
+      <div class="grid-3">
+        {
+          preview.map((p) => (
+            <article class="svc">
+              <span class:list={['icon', p.tint]}>
+                <svg
+                  aria-hidden="true"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={p.tint === 'amber' ? '#6B4A12' : '#1F4D3A'}
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  set:html={p.icon}
+                />
+              </span>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how section">
+    <div class="container how-inner">
+      <div class="how-head">
+        <span class="eyebrow">How training is delivered</span>
+        <h2 class="display">Learn in person, online, or at your own pace</h2>
+      </div>
+      <div class="grid-3">
+        {
+          delivery.map((d) => (
+            <div class="step">
+              <span class="step-n">{d.n}</span>
+              <h3>{d.title}</h3>
+              <p>{d.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission / vision -->
+  <section class="mv section">
+    <div class="container mv-inner">
+      <div class="mv-card mission">
+        <span class="mv-label">Our mission</span>
+        <p>
+          To empower South African youth facilitators and educators through practical training that enables them to
+          deliver powerful, engaging and sustainable camps and life skills programmes.
+        </p>
+      </div>
+      <div class="mv-card vision">
+        <span class="mv-label">Our vision</span>
+        <p>
+          A generation of equipped and inspired youth leaders across South Africa, confidently running life skills
+          programmes and camps that transform young lives.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="proof section">
+    <div class="container proof-inner">
+      <h2 class="display">Stories from the field</h2>
+      <div class="grid-3">
+        {
+          stories.map((s) => (
+            <div class="story">
+              <p>{s.text}</p>
+              <span>{s.who}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Start with a free monthly info session"
+    body="See how YETS training works, meet the trainer and ask questions before you commit. Or tell us about your school, church or organisation and we will shape a programme for you."
+    primary="Reserve a seat"
+    secondary="Request a custom quote"
+  />
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-top: 72px;
+    padding-bottom: 80px;
+  }
+  .hero-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 56px;
+  }
+  .hero-copy {
+    flex: 1 1 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  h1 {
+    font-weight: 800;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .lead {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+  .hero .btn-row {
+    margin-top: 8px;
+  }
+  .hero-photo {
+    flex: 1 1 380px;
+    min-height: 440px;
+    border-radius: 28px;
+    background: repeating-linear-gradient(135deg, var(--green-100) 0 18px, var(--green-200) 18px 36px);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+  }
+  .hero-photo span {
+    background: #fff;
+    color: var(--green-800);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: 10px;
+  }
+
+  /* Audience */
+  .audience {
+    background: var(--green-700);
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .audience-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 32px;
+  }
+  .audience-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--amber);
+  }
+  .audience-item {
+    color: #fff;
+    font-size: 17px;
+  }
+
+  /* Problem */
+  .problem {
+    padding-top: 88px;
+    padding-bottom: 40px;
+  }
+  .problem-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+  }
+  .problem-head,
+  .problem-body {
+    flex: 1 1 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .problem-head h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 4.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .problem-body p {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* Services preview */
+  .preview {
+    padding-top: 56px;
+    padding-bottom: 88px;
+  }
+  .preview-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .preview-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .preview-head h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 40px);
+    letter-spacing: -0.01em;
+  }
+  .see-all {
+    font-weight: 700;
+    text-decoration: none;
+    padding: 10px 0;
+  }
+  .svc {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon.amber {
+    background: var(--amber-100);
+  }
+  .icon.green {
+    background: var(--green-100);
+  }
+  .svc h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--green-800);
+  }
+  .svc p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* How it works */
+  .how {
+    background: var(--cream-deep);
+    padding-top: 88px;
+    padding-bottom: 88px;
+  }
+  .how-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .how-head {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 640px;
+  }
+  .how-head h2 {
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 40px);
+    line-height: 1.1;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 3px solid var(--green-700);
+    padding-top: 20px;
+  }
+  .step-n {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 34px;
+    color: var(--green-700);
+  }
+  .step h3 {
+    font-size: 21px;
+    color: var(--green-800);
+  }
+  .step p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* Mission / vision */
+  .mv {
+    padding-top: 88px;
+    padding-bottom: 88px;
+  }
+  .mv-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .mv-card {
+    flex: 1 1 460px;
+    border-radius: 28px;
+    padding: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .mv-card p {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.3;
+  }
+  .mv-label {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .mission {
+    background: var(--green-700);
+  }
+  .mission .mv-label {
+    color: var(--amber);
+  }
+  .mission p {
+    color: #fff;
+  }
+  .vision {
+    background: var(--amber-100);
+  }
+  .vision .mv-label {
+    color: var(--amber-ink);
+  }
+  .vision p {
+    color: #3a2705;
+  }
+
+  /* Proof */
+  .proof {
+    padding-bottom: 88px;
+  }
+  .proof-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .proof-inner h2 {
+    font-weight: 700;
+    font-size: clamp(28px, 3.6vw, 36px);
+  }
+  .story {
+    border: 2px dashed var(--line-dashed);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #fff;
+  }
+  .story p {
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .story span {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green-800);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-top: 40px;
+      padding-bottom: 48px;
+    }
+    .hero-inner {
+      gap: 32px;
+    }
+    .hero-photo {
+      min-height: 280px;
+    }
+    .problem,
+    .how,
+    .mv {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+    .preview {
+      padding-bottom: 56px;
+    }
+    .proof {
+      padding-bottom: 56px;
+    }
+    .mv-card {
+      padding: 28px 24px;
+    }
+    .mv-card p {
+      font-size: 22px;
+    }
+    .svc {
+      padding: 24px;
+    }
+  }
+</style>

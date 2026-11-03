@@ -1,0 +1,79 @@
+---
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+  number: string;
+}
+
+const { service, number } = Astro.props;
+---
+
+<article id={service.id} class="card">
+  <div class="head">
+    <span class="num">{number}</span>
+    <h2>{service.title}</h2>
+    <a href="#contact" class="enquire">{service.cta} →</a>
+  </div>
+  <ul>
+    {service.points.map((point) => <li>{point}</li>)}
+  </ul>
+</article>
+
+<style>
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    scroll-margin-top: 24px;
+  }
+  .head {
+    flex: 1 1 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 40px;
+    color: var(--amber);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.1;
+    color: var(--green-800);
+  }
+  .enquire {
+    align-self: flex-start;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 8px 0;
+  }
+  ul {
+    flex: 1 1 400px;
+    padding-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    .card {
+      padding: 28px 22px;
+      border-radius: 24px;
+    }
+    h2 {
+      font-size: 26px;
+    }
+  }
+</style>

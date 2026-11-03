@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services } from '../data/services';
+
+const extras = [
+  {
+    title: 'Resource kits & toolkits',
+    body: 'Life skills and camp planning templates, curriculum guides, activity booklets, evaluation forms and tracking tools.',
+  },
+  {
+    title: 'Subscription mentorship',
+    body: 'Ongoing coaching and support so your programme keeps improving long after the training day.',
+  },
+  {
+    title: 'Certificates of attendance',
+    body: 'Recognition for every participant who completes a training, ready for CVs and school or NGO records.',
+  },
+];
+---
+
+<Layout
+  title="Services | YETS"
+  description="Camp facilitation, life skills programmes, presentation skills, custom training, consultancy and coaching for youth workers, teachers and organisations."
+>
+  <section class="header section">
+    <div class="container header-inner">
+      <span class="pill-label">Services</span>
+      <h1 class="display">Six ways we help you lead young people well</h1>
+      <p>
+        From planning your first camp to coaching your team through year two, choose a single training or build a
+        programme around your organisation.
+      </p>
+      <nav class="jump" aria-label="Jump to a service">
+        {services.map((s) => <a href={`#${s.id}`}>{s.short}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  <section class="list section">
+    <div class="container list-inner">
+      {services.map((s, i) => <ServiceCard service={s} number={String(i + 1).padStart(2, '0')} />)}
+    </div>
+  </section>
+
+  <section class="extras section">
+    <div class="container extras-inner">
+      <h2 class="display">Take it further</h2>
+      <div class="grid-3">
+        {
+          extras.map((e) => (
+            <div class="extra">
+              <h3>{e.title}</h3>
+              <p>{e.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Not sure where to start?"
+    body="Tell us about your team and the young people you serve, and we will recommend the right training."
+    primary="Book a training"
+    secondary="Join a free info session"
+  />
+</Layout>
+
+<style>
+  .header {
+    padding-top: 72px;
+    padding-bottom: 48px;
+  }
+  .header-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  h1 {
+    font-weight: 800;
+    font-size: clamp(36px, 5.2vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+  }
+  .header-inner > p {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 680px;
+  }
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .jump a {
+    border: 1.5px solid var(--green-700);
+    color: var(--green-700);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+  }
+  .jump a:hover {
+    background: var(--green-700);
+    color: #fff;
+  }
+
+  .list {
+    padding-top: 24px;
+    padding-bottom: 72px;
+  }
+  .list-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .extras {
+    background: var(--cream-deep);
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+  .extras-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .extras-inner h2 {
+    font-weight: 700;
+    font-size: clamp(28px, 3.6vw, 36px);
+  }
+  .extra {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .extra h3 {
+    font-size: 20px;
+    color: var(--green-800);
+  }
+  .extra p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    .header {
+      padding-top: 40px;
+      padding-bottom: 32px;
+    }
+    .list,
+    .extras {
+      padding-top: 40px;
+      padding-bottom: 48px;
+    }
+  }
+</style>
